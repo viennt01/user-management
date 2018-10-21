@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="ttran" id="dev-data-for-user">
+        <insert tableName="user">
+            <column name="id" value="137f43e2-488b-4d97-b384-2dfccd53fde1"/>
+            <column name="username" value="test1"/>
+            <column name="email" value="test1@mgm-tp.com"/>
+            <column name="first_name" value="Test1" />
+            <column name="last_name"  value="User"/>
+            <column name="password" value="$2a$10$5JwPPryn0XiOjycadPfsQ.2hAkG8sAGjrd.QKZdtEV9HniVFr4hfq"/>
+        </insert>
+        <insert tableName="user">
+            <column name="id" value="eacc3d53-3181-4147-bd64-ab9e02ff48a4"/>
+            <column name="username" value="test2"/>
+            <column name="email" value="test2@mgm-tp.com"/>
+            <column name="first_name" value="Test2" />
+            <column name="last_name"  value="User"/>
+            <column name="password" value="$2a$10$5JwPPryn0XiOjycadPfsQ.2hAkG8sAGjrd.QKZdtEV9HniVFr4hfq"/>
+        </insert>
+        <insert tableName="user">
+            <column name="id" value="9d273f23-eb4f-4bfd-b284-0efd17f1f2b1"/>
+            <column name="username" value="test3"/>
+            <column name="email" value="test3@mgm-tp.com"/>
+            <column name="first_name" value="Test3" />
+            <column name="last_name"  value="User"/>
+            <column name="password" value="$2a$10$5JwPPryn0XiOjycadPfsQ.2hAkG8sAGjrd.QKZdtEV9HniVFr4hfq"/>
+        </insert>
+        <insert tableName="user">
+            <column name="id" value="f457c845-8b03-4032-a2d0-6c41f44fc3b6"/>
+            <column name="username" value="test4"/>
+            <column name="email" value="test4@mgm-tp.com"/>
+            <column name="first_name" value="Test4" />
+            <column name="last_name"  value="User"/>
+            <column name="password" value="$2a$10$5JwPPryn0XiOjycadPfsQ.2hAkG8sAGjrd.QKZdtEV9HniVFr4hfq"/>
+        </insert>
+        <insert tableName="user">
+            <column name="id" value="c4a03cc4-34a1-488d-a951-3587a9bdf470"/>
+            <column name="username" value="test5"/>
+            <column name="email" value="test5@mgm-tp.com"/>
+            <column name="first_name" value="Test5" />
+            <column name="last_name"  value="User"/>
+            <column name="password" value="$2a$10$5JwPPryn0XiOjycadPfsQ.2hAkG8sAGjrd.QKZdtEV9HniVFr4hfq"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

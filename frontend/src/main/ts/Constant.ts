@@ -1,0 +1,5 @@
+declare const CONTEXT_PATH: string;
+
+const CONTEXT_PATH_CONST = CONTEXT_PATH;
+
+export {CONTEXT_PATH_CONST as CONTEXT_PATH};
