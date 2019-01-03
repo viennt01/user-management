@@ -45,9 +45,23 @@ node {
 	}
 
 	stage('BUILD PROJECT') {
-		// TODO: execute maven build
-		// IDEA: use 'Shell Script' step, and also see README.md - how to build project
+		sh './mvnw clean install -P prod'
 	}
+
+	if (!currentBuild.result) {
+		stage('BUILD IMAGE') {
+			// TODO: write Dockerfile or you could use any plugin to build an image
+			// IDEA: if you like Dockerfile https://spring.io/guides/gs/spring-boot-docker/
+
+			// TODO: enable info endpoint (Spring Actuator), we will use later to verify that application is deployed successfully
+			// IDEA: https://www.baeldung.com/spring-boot-actuators
+
+			// TODO: build and tag an image
+			// IDEA: use 'Shell Script' step to execute docker command
+		}
+
+	}
+
 
 }
 
