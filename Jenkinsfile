@@ -14,8 +14,6 @@ node {
 		def AWS_ECR_REPOSITORY_URL = "https://${AWS_ECR_REPOSITORY}"
 		def AWS_ECR_CREDENTIALS_ID = "ecr:${AWS_DEFAULT_REGION}:aws"
 		def AWS_ECS_CLUSTER_NAME = 'EcsCluster'
-
-		// TODO: finish this method ;)
 		def AWS_LB_DNS_NAME = loadBalancerDNSName(AWS_DEFAULT_REGION)
 
 		def branch = env.BRANCH_NAME
@@ -81,7 +79,6 @@ node {
 						def taskDefinitionName = "user-management-${branch}-task-definition"
 						def serviceName = "user-management-${branch}-service"
 
-						// TODO: finish this method ;)
 						def taskRevision = registerTaskRevision(taskDefinitionName, AWS_LB_DNS_NAME, branch, AWS_ECR_REPOSITORY, AWS_DEFAULT_REGION, imageTag)
 
 						if (serviceExists(serviceName, AWS_DEFAULT_REGION, AWS_ECS_CLUSTER_NAME)) {
@@ -94,7 +91,7 @@ node {
 
 							println "Executing update service cmd: ${updateServiceCmd}"
 
-							// TODO: use Shell Sript to execute updateServiceCmd
+							sh updateServiceCmd
 						} else {
 							def createServiceCmd = "aws ecs create-service " +
 									"--cluster ${AWS_ECS_CLUSTER_NAME} " +
@@ -105,8 +102,15 @@ node {
 
 							println "Executing create service cmd: ${createServiceCmd}"
 
-							// TODO: use Shell Sript to execute createServiceCmd
+							sh createServiceCmd
 						}
+					}
+
+					stage('STARTUP VERIFICATION') {
+						def infoUrl = "http://${AWS_LB_DNS_NAME}/${branch}/actuator/info"
+
+						// TODO: finish this method ;)
+						ping(infoUrl, imageTag)
 					}
 
 				}
@@ -123,6 +127,30 @@ String buildImageTagFromPomFile(String branch) {
 	def gitRev = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
 
 	return "$artifactVersion-$branch-$gitRev"
+}
+
+def ping(String url, String imageTag) {
+	println "Executing ping url: ${url} in 5 minutes to verify version must be: ${imageTag}"
+	try {
+		timeout time: 5, unit: 'MINUTES', {
+			waitUntil {
+				try {
+					// TODO: how about using Shell Script to curl ;), parse response
+					// and version must equal to imageTag input!
+
+					true
+				}
+				catch (error) {
+					println error
+					false
+				}
+			}
+		}
+	}
+	catch (failure) {
+		error 'Deployment verification failed after 5 minutes'
+	}
+
 }
 
 // AMAZON HELPERS
@@ -143,13 +171,16 @@ String loadBalancerDNSName(String region) {
 			"--region ${region}"
 	println "Executing describe load balancers cmd: ${describeLoadBalancersCmd}"
 
-	// TODO: use Shell Sript to execute describeLoadBalancersCmd
+	def describeLoadBalancersResponse = sh returnStdout: true, script: describeLoadBalancersCmd
+	println "Response of describe load balancers cmd: ${describeLoadBalancersResponse}"
 
-	// TODO: use readJSON to parse response
+	def describeLoadBalancersJson = readJSON text: describeLoadBalancersResponse
 
-	// TODO: verify that response must contain only one Load Balancer
+	if (describeLoadBalancersJson.LoadBalancers.size() != 1) {
+		error 'Expect one LoadBalancer, but found more than one or none!'
+	}
 
-	// TODO: return something likes describeLoadBalancersJson.LoadBalancers[0].DNSName
+	return describeLoadBalancersJson.LoadBalancers[0].DNSName
 }
 
 String registerTaskRevision(String taskDefinitionName, String lbDNSName, String branch, String repository, String region, String imageTag) {
@@ -165,10 +196,12 @@ String registerTaskRevision(String taskDefinitionName, String lbDNSName, String 
 			"--region ${region}"
 	println "Executing register task definition cmd: ${registerTaskDefinitionCmd}"
 
-	// TODO: use Shell Sript to execute registerTaskDefinitionCmd, parse response
+	def registerTaskDefinitionResponse = sh returnStdout: true, script: registerTaskDefinitionCmd
+	println "Response of register task definition cmd: ${registerTaskDefinitionResponse}"
 
-	// TODO: return registerTaskDefinitionJson.taskDefinition.revision
+	def registerTaskDefinitionJson = readJSON text: registerTaskDefinitionResponse
 
+	return registerTaskDefinitionJson.taskDefinition.revision
 }
 
 boolean serviceExists(String serviceName, String region, String clusterName) {
