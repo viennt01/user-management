@@ -135,10 +135,10 @@ def ping(String url, String imageTag) {
 		timeout time: 5, unit: 'MINUTES', {
 			waitUntil {
 				try {
-					// TODO: how about using Shell Script to curl ;), parse response
-					// and version must equal to imageTag input!
-
-					true
+					def infoResponse = sh returnStdout: true, script: "curl -k --connect-timeout 3 ${url}"
+					println infoResponse
+					def infoJson = readJSON text: infoResponse
+					infoJson.application.version == imageTag
 				}
 				catch (error) {
 					println error
