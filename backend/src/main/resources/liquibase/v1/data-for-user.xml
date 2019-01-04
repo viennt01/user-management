@@ -42,7 +42,7 @@
             <column name="id" value="c4a03cc4-34a1-488d-a951-3587a9bdf470"/>
             <column name="username" value="test5"/>
             <column name="email" value="test5@mgm-tp.com"/>
-            <column name="first_name" value="Test5" />
+            <column name="first_name" value="Test6" />
             <column name="last_name"  value="User"/>
             <column name="password" value="$2a$10$5JwPPryn0XiOjycadPfsQ.2hAkG8sAGjrd.QKZdtEV9HniVFr4hfq"/>
         </insert>
