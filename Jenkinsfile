@@ -6,4 +6,4 @@ node {
         println "Hello, this is my first pipeline!"
     }
 
-} 
+}
