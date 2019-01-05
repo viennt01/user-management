@@ -45,12 +45,12 @@
             // IDEA: use 'Shell Script' step, and also see README.md - how to build project
 	    }		
     }
+}
 
-    String buildImageTagFromPomFile(String branch) {
-        def artifactVersion = fileExists('pom.xml') ? readMavenPom(file: 'pom.xml').version : ''
+String buildImageTagFromPomFile(String branch) {
+    def artifactVersion = fileExists('pom.xml') ? readMavenPom(file: 'pom.xml').version : ''
         artifactVersion = artifactVersion - '-SNAPSHOT'
         def gitRev = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
 
         return "$artifactVersion-$branch-$gitRev"
-    }
- }
+}
