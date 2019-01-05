@@ -12,7 +12,7 @@ node {
 
  		// TODO: setup tools: Java, Maven...
 		// IDEA: use 'Tool' step to get path of installed Java, then set Java path into env.PATH
-        env.JAVA_HOME = "${tool 'java8'}"
+        env.JAVA_HOME = "${tool 'Java8'}"
 
         println "${env.JAVA_HOME}"
         println "${env.PATH}"
