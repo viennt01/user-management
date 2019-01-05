@@ -19,6 +19,10 @@ node {
         env.PATH += ":${env.JAVA_HOME}"
         println "${env.PATH}"
 
+        sh "java -version"
+
+        sh "mvn --version"
+
  		// TODO: checkout project, please remember to checkout only your branch!
 		// IDEA: use 'Checkout' step
 
