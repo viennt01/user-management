@@ -53,6 +53,13 @@ node {
 		currentBuild.displayName = imageTag
 	}
 
+	stage('BUILD PROJECT') {
+		// TODO: execute maven build
+		// IDEA: use 'Shell Script' step, and also see README.md - how to build project
+
+		sh 'mvnw clean install'
+	}
+
 }
 
 // GENERAL HELPERS
