@@ -52,6 +52,9 @@ node {
 
 	stage('BUILD PROJECT') {
 		// TODO: execute maven build
+
+		sh './mvnw clean install -P prod'
+		
 		// IDEA: use 'Shell Script' step, and also see README.md - how to build project
 	}
 }
