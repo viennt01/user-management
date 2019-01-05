@@ -144,9 +144,7 @@ String accountId() {
 	return getCallerIdentityJson.Account
 }
 
-}
-
- String loadBalancerDNSName(String region) {
+String loadBalancerDNSName(String region) {
 	def describeLoadBalancersCmd = "aws elbv2 describe-load-balancers " +
 			"--region ${region}"
 	println "Executing describe load balancers cmd: ${describeLoadBalancersCmd}"
