@@ -6,7 +6,7 @@ Run the following commands to build:
 
     $ cd user-management
     $ ./mvnw clean install
-    
+
 Only execute `clean` phase when you really need to, because `node_modules` will be deleted!
 That makes build slower.
 
@@ -22,12 +22,12 @@ Run UserManagementApplication.
 
 Now, User Management is running on `http://localhost:8080`
 
-### 2.2. Static Frontend 
+### 2.2. Static Frontend
 
 In case you want to faster see your change on frontend code, without building whole project again.
 
     $ cd abccargo
     $ cd frontend
     $ npm start
-    
+
 Webpack dev server will serve Static on `http://localhost:9000`
