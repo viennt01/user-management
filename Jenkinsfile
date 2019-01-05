@@ -43,8 +43,7 @@
         stage('BUILD PROJECT') {
             // TODO: execute maven build
             // IDEA: use 'Shell Script' step, and also see README.md - how to build project
-            $ cd user-management
-            $ ./mvnw clean install
+           sh ' ./mvnw clean install'
 	    }		
     }
 }
