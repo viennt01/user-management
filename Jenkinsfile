@@ -52,4 +52,5 @@
 
             return "$artifactVersion-$branch-$gitRev"
         } 	
+    }
  } 
