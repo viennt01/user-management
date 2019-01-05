@@ -57,6 +57,13 @@ node {
 		
 		// IDEA: use 'Shell Script' step, and also see README.md - how to build project
 	}
+
+	if (!currentBuild.result) {
+		stage('BUILD IMAGE') {
+			sh "docker build -t $imageName:$imageTag ./docker"
+			sh "docker tag $imageName:$imageTag ${AWS_ECR_REPOSITORY}/$imageName:$imageTag"
+		}
+	}
 }
 
 // GENERAL HELPERS
