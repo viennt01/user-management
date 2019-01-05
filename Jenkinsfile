@@ -63,7 +63,14 @@ node {
 			currentBuild.displayName = imageTag
 		}
 
-		
+		stage('BUILD PROJECT') {
+			// TODO: execute maven build
+
+			sh './mvnw clean install -P prod'
+			
+			// IDEA: use 'Shell Script' step, and also see README.md - how to build project
+		}
+
 		if (!currentBuild.result) {
 			stage('BUILD IMAGE') {
 				sh "docker build -t $imageName:$imageTag ./docker"
