@@ -2,21 +2,21 @@
 
 node {
 
-    stage('HELLO PIPELINE') {
-        println "Hello, this is my first pipeline!"
+    def branch = env.BRANCH_NAME
+    def imageName = 'user-management'
+    def imageTag = ''
 
-        // TOTO: clean up docker images which were built before
-        // IDEA: use 'Shell Script' step to remove all docker images
+    stage('PREPARATION') {
+        // Delete all images, which have been built before!
         sh returnStatus: true, script: 'docker rmi -f $(docker images -q)'
 
-        // TODO: setup tools: Java, Maven...
-        // IDEA: use 'Tool' step to get path of installed Java, then set Java path into env.PATH
+        // Setup Java
         env.JAVA_HOME="${tool 'Java8'}"
         env.PATH="${env.JAVA_HOME}/bin:${env.PATH}"
         sh 'java -version'
 
-        // TODO: checkout project, please remember to checkout only your branch!
-        // IDEA: use 'Checkout' step
+        // Checkout branch
+        // Need to set LocalBranch extension, since: https://stackoverflow.com/questions/44006070/jenkins-gitscm-finishes-the-clone-in-a-detached-head-state-how-can-i-make-sure
         checkout([$class: 'GitSCM',
                   branches: [
                           [
@@ -38,15 +38,14 @@ node {
                   ]
         ])
 
-        // TODO: build image tag, later we will use this tag to tag docker image in this build
-        // IDEA: some of global variables that might interesting!
         imageTag = buildImageTagFromPomFile(branch)
 
-        // TODO: may be change display name of this build to display image tab
+        // Change build name
         currentBuild.displayName = imageTag
     }
 
 }
+
 // GENERAL HELPERS
 
 String buildImageTagFromPomFile(String branch) {
