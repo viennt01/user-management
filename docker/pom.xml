@@ -9,9 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-     <artifactId>docker</artifactId>
+    <artifactId>docker</artifactId>
 
-     <dependencies>
+    <dependencies>
         <dependency>
             <groupId>com.mgmtp.vn.techevent</groupId>
             <artifactId>backend</artifactId>
@@ -19,7 +19,7 @@
         </dependency>
     </dependencies>
 
-     <build>
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -92,4 +92,4 @@
     </build>
 
 
- </project>
+</project>
