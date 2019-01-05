@@ -67,7 +67,11 @@ node {
 				sh "docker build -t $imageName:$imageTag ./docker"
 				sh "docker tag $imageName:$imageTag ${AWS_ECR_REPOSITORY}/$imageName:$imageTag"
 			}
-
+            stage('PUSH IMAGE') {
+				withDockerRegistry(credentialsId: AWS_ECR_CREDENTIALS_ID, url: AWS_ECR_REPOSITORY_URL) {
+					sh "docker push ${AWS_ECR_REPOSITORY}/$imageName:$imageTag"
+				}
+			}
 
 
 		}
