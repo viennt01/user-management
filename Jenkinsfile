@@ -50,12 +50,6 @@ node {
 		currentBuild.displayName = imageTag
 	}
 
-		// TODO: may be change display name of this build to display image tab
-	stage('BUILD PROJECT') {
-		// TODO: execute maven build
-		// IDEA: use 'Shell Script' step, and also see README.md - how to build project
-	}
-
 }
 
 // GENERAL HELPERS
