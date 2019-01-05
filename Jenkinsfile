@@ -1,8 +1,6 @@
 #!/usr/bin/env groovy
 node {
 
-	stage('HELLO PIPELINE') {
-		println "Hello, this is my first pipeline!"
 	stage('PREPARATION') {
 		// TOTO: clean up docker images which were built before
 		// IDEA: use 'Shell Script' step to remove all docker images
@@ -20,3 +18,4 @@ node {
 	}
 
 }
+
