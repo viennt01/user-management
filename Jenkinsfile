@@ -44,6 +44,9 @@ node {
         currentBuild.displayName = imageTag
     }
 
+    stage('BUILD PROJECT') {
+        sh './mvnw clean install -P prod'
+    }
 }
 
 // GENERAL HELPERS
