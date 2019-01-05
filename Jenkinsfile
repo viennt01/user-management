@@ -10,7 +10,7 @@ node{
 
         // TODO: checkout project, please remember to checkout only your branch!
         // IDEA: use 'Checkout' step
-        checkout([$class: 'GitSCM', branches: [[name: '*/sonlv']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'tranductrinh', url: 'https://github.com/tranductrinh/user-management']]])
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'tranductrinh', url: 'https://github.com/tranductrinh/user-management']]])
 
         // TODO: build image tag, later we will use this tag to tag docker image in this build
         // IDEA: some of global variables that might interesting!
