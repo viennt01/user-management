@@ -12,9 +12,10 @@ node {
 
  		// TODO: setup tools: Java, Maven...
 		// IDEA: use 'Tool' step to get path of installed Java, then set Java path into env.PATH
-        tool name: '', type: 'maven'
+        env.JAVA_HOME = "${tool name: 'java8'}"
 
-        sh 'mvn --version'
+        println "${env.JAVA_HOME}"
+        println "${env.PATH}"
 
  		// TODO: checkout project, please remember to checkout only your branch!
 		// IDEA: use 'Checkout' step
