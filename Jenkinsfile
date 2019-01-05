@@ -72,6 +72,9 @@ node {
 
 				// TODO: in order to push to Amazon ECR, we need to login to the repository!
 				// use 'withDockerRegistry' step, we have constant AWS_ECR_REPOSITORY_URL and AWS_ECR_CREDENTIALS_ID
+				withDockerRegistry(credentialsId: AWS_ECR_CREDENTIALS_ID, url: AWS_ECR_REPOSITORY_URL) {
+					sh "docker push ${AWS_ECR_REPOSITORY}/$imageName:$imageTag"
+				}
 			}
 
 		}
