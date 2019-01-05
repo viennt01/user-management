@@ -1,0 +1,20 @@
+{
+  "family": "%TASK_DEFINITION_NAME%",
+  "containerDefinitions": [
+    {
+      "image": "%AWS_ERC_REPOSITORY%/user-management:%IMAGE_TAG%",
+      "name": "%TASK_DEFINITION_NAME%",
+      "memory": 512,
+      "portMappings": [
+        {
+          "containerPort": 8080
+        }
+      ],
+      "dockerLabels": {
+        "traefik.enable": "true",
+        "traefik.frontend.rule": "Host:%LB_DNS_NAME%;PathPrefix:/%BRANCH%/",
+        "traefik.port": "8080"
+      }
+    }
+  ]
+} 
