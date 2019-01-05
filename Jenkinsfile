@@ -2,6 +2,10 @@
 
 node {
 
+	def branch = env.BRANCH_NAME
+	def imageName = 'user-management'
+	def imageTag = ''
+
 	stage('PREPARATION') {
 		// TODO: clean up docker images which were built before
 		// IDEA: use 'Shell Script' step to remove all docker images
