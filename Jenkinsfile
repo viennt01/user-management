@@ -16,6 +16,8 @@ node {
 
         println "${env.JAVA_HOME}"
         println "${env.PATH}"
+        env.PATH += ":${env.JAVA_HOME}"
+        println "${env.PATH}"
 
  		// TODO: checkout project, please remember to checkout only your branch!
 		// IDEA: use 'Checkout' step
