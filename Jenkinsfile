@@ -73,6 +73,46 @@ node {
 				}
 			}
 
+			withAWS(credentials:'aws') {
+					stage('DEPLOY') {
+						def taskDefinitionName = "user-management-${branch}-task-definition"
+						def serviceName = "user-management-${branch}-service"
+
+						def taskRevision = registerTaskRevision(taskDefinitionName, AWS_LB_DNS_NAME, branch, AWS_ECR_REPOSITORY, AWS_DEFAULT_REGION, imageTag)
+
+						if (serviceExists(serviceName, AWS_DEFAULT_REGION, AWS_ECS_CLUSTER_NAME)) {
+							def updateServiceCmd = "aws ecs update-service " +
+									"--cluster ${AWS_ECS_CLUSTER_NAME} " +
+									"--service ${serviceName} " +
+									"--task-definition ${taskDefinitionName}:${taskRevision} " +
+									'--desired-count 1 ' +
+									"--region ${AWS_DEFAULT_REGION}"
+
+							println "Executing update service cmd: ${updateServiceCmd}"
+
+							sh updateServiceCmd
+						} else {
+							def createServiceCmd = "aws ecs create-service " +
+									"--cluster ${AWS_ECS_CLUSTER_NAME} " +
+									"--service-name ${serviceName} " +
+									"--task-definition ${taskDefinitionName}:${taskRevision} " +
+									'--desired-count 1 ' +
+									"--region ${AWS_DEFAULT_REGION}"
+
+							println "Executing create service cmd: ${createServiceCmd}"
+
+							sh createServiceCmd
+						}
+					}
+
+					stage('STARTUP VERIFICATION') {
+						def infoUrl = "http://${AWS_LB_DNS_NAME}/${branch}/actuator/info"
+
+						// TODO: finish this method ;)
+						ping(infoUrl, imageTag)
+					}
+
+				}
 
 		}
 	}
